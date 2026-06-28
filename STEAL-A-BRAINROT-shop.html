@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>68rz</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#000;color:#fff;overflow:hidden;}
+
+#navbar{position:fixed;top:0;left:0;width:100%;padding:15px 25px;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;z-index:9998;}
+#navbar .logo{font-size:24px;text-shadow:0 0 15px white;cursor:pointer;transition:0.2s;}
+#navbar .logo:hover{text-shadow:0 0 30px white;}
+
+#snow-container,#snow-container-front{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+#snow-container{z-index:1;}#snow-container-front{z-index:10;}
+.snowflake{position:absolute;top:-10px;color:white;font-size:1.2em;opacity:0.6;animation:fall linear infinite;pointer-events:none;user-select:none;}
+@keyframes fall{0%{transform:translateY(-30px) rotate(0deg);opacity:0.6;}100%{transform:translateY(110vh) rotate(360deg);opacity:0.2;}}
+
+#cursor-glow{position:fixed;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);filter:blur(60px);pointer-events:none;transform:translate(-50%,-50%);z-index:2;}
+
+#enter{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;z-index:9999;}
+#enter h1{font-size:clamp(40px,12vw,100px);text-shadow:0 0 20px white;text-align:center;padding:0 20px;}
+#enter p{font-size:clamp(12px,3vw,20px);margin-top:15px;color:#aaa;text-align:center;}
+
+#main{display:none;height:100vh;overflow:auto;padding:80px 25px 25px;text-align:center;position:relative;z-index:3;}
+.cards-container{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:30px;max-width:1400px;margin:20px auto;padding:0 20px;}
+
+.card{flex:1 1 380px;max-width:450px;min-width:320px;padding:30px;border-radius:25px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(15px);transition:0.3s ease;position:relative;z-index:5;}
+.card:hover{box-shadow:0 0 30px rgba(255,255,255,0.15);background:rgba(255,255,255,.1);transform:translateY(-3px);}
+.profile-header{display:flex;align-items:center;gap:20px;margin-bottom:15px;}
+.avatar-wrapper{position:relative;flex-shrink:0;z-index:15;}
+.avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid white;cursor:pointer;display:block;}
+.founder-badge{
+  position:absolute;
+  top:-15px;
+  left:-8px;
+  background:#000;
+  color:#fff;
+  font-size:10px;
+  font-weight:bold;
+  padding:3px 10px;
+  border-radius:12px;
+  border:2px solid #000;
+  white-space:nowrap;
+  z-index:20;
+}
+.profile-info{flex:1;text-align:left;position:relative;z-index:15;}
+.profile-info h2{font-size:26px;margin-bottom:8px;}
+.discord-status{display:flex;align-items:center;gap:8px;font-size:14px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);margin-bottom:6px;}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.status-dot.online{background:#43b581;box-shadow:0 0 10px #43b581;}
+.status-dot.idle{background:#faa61a;box-shadow:0 0 10px #faa61a;}
+.status-dot.dnd{background:#f04747;box-shadow:0 0 10px #f04747;}
+.status-dot.offline{background:#747f8d;}
+.discord-activity{font-size:13px;color:#ccc;margin-top:4px;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);line-height:1.5;text-align:left;}
+.social-buttons{display:flex;gap:10px;margin-top:15px;position:relative;z-index:15;}
+.social-btn{flex:1;padding:14px 10px;background:#111;color:white;border:1px solid #444;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;transition:0.2s;}
+.social-btn:hover{box-shadow:0 0 20px white;background:#1a1a1a;}
+.social-btn i{font-size:22px;width:24px;text-align:center;}
+.social-btn .label{font-weight:bold;}
+.social-btn .handle{color:#aaa;font-size:13px;}
+
+@media(max-width:768px){
+#navbar .logo{font-size:18px;}
+#main{padding:70px 15px 15px;}
+.cards-container{flex-direction:column;align-items:center;gap:20px;padding:0;}
+.card{flex:unset;width:100%;max-width:400px;min-width:unset;padding:20px;}
+.profile-header{flex-direction:column;text-align:center;gap:12px;}
+.profile-info{text-align:center;}
+.avatar{width:100px;height:100px;}
+.profile-info h2{font-size:22px;}
+.discord-status{justify-content:center;}
+.discord-activity{text-align:center;}
+.social-buttons{flex-direction:column;gap:8px;}
+.social-btn{padding:12px;font-size:14px;}
+}
+
+/* ===== MUSIK-ICON OBEN IN DER NAVBAR (links) ===== */
+#musicBtn{
+  position:fixed;
+  top:10px;
+  left:15px;
+  z-index:10000;
+  width:40px;
+  height:40px;
+  padding:0;
+  background:transparent;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  outline:none;
+}
+#musicBtn img{width:28px;height:28px;border-radius:4px;}
+
+#main::-webkit-scrollbar{width:6px;}
+#main::-webkit-scrollbar-track{background:transparent;}
+#main::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div id="snow-container"></div>
+<div id="snow-container-front"></div>
+<div id="cursor-glow"></div>
+
+<div id="enter"><h1>CLICK TO ENTER</h1><p>sound on recommended</p></div>
+
+<audio id="music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+<button id="musicBtn"><img id="musicIcon" src="https://cdn.discordapp.com/attachments/1506318533217226752/1519769366911254539/speaker-256.png?ex=6a3ec305&is=6a3d7185&hm=2a08d6ecb3ac5698e7d3e404c2aca7b5d299e82927337eeda6b61eed649686ed"></button>
+
+<div id="navbar"><div class="logo" onclick="document.getElementById('main').scrollTo({top:0,behavior:'smooth'})">COMBOSS FRIEND GROUP</div></div>
+
+<div id="main"><div class="cards-container"></div></div>
+
+<script>
+// ============================================================
+// >>> NEUE FREUNDE HINZUFÜGEN <<<
+// Nach jedem { ... } ein KOMMA setzen (außer beim LETZTEN)
+// ============================================================
+const PROFILES = [
+  {userId:"629800496479076352",name:"FAYYSI",avatar:"https://cdn.discordapp.com/attachments/1506318533217226752/1519487604423262309/458ab107ae9770e16a9d3aca2e09bb6b_1.jpg?ex=6a3dbc9b&is=6a3c6b1b&hm=9ecc1040e809ecd93aa4d619417f24c1441b3c1dd244015fa6fa8b661b6bfb43&",isFounder:true,discord:{tag:"68rz",label:"Discord"},roblox:{tag:"Fayysi",label:"Roblox"}},
+  {userId:"1319734715858550835",name:"Layysi",avatar:"https://cdn.discordapp.com/avatars/1319734715858550835/fda97d7ec9325b6e907b12c08a616328.png?size=512",isFounder:false,discord:{tag:"7e9p",label:"Discord"},roblox:{tag:"Layysi",label:"Roblox"}},
+  {userId:"1519379611648131109",name:"rootkit",avatar:"https://cdn.discordapp.com/attachments/1519724814951252281/1519782023722696844/fdd701338be26f2d6ad979f0914d2e95.jpg?ex=6a3ecece&is=6a3d7d4e&hm=717d25a514f9f01ead42408c6d095234a924d43ff5e618ee71679c238da31b50",isFounder:false,discord:{tag:"solanaaddy",label:"Discord"},roblox:{tag:"gg",label:"Roblox"}},
+];
+
+// ============ AB HIER NICHTS MEHR ÄNDERN ============
+(function(){
+localStorage.setItem('profiles', JSON.stringify(PROFILES));
+const c = document.querySelector('.cards-container');
+c.innerHTML = PROFILES.map(p => {
+const b = p.isFounder ? '<div class="founder-badge">FOUNDER</div>' : '';
+return `<div class="card" data-userid="${p.userId}"><div class="profile-header"><div class="avatar-wrapper"><img class="avatar" id="av-${p.userId}" src="${p.avatar}">${b}</div><div class="profile-info"><h2>${p.name}</h2><div class="discord-status" id="st-${p.userId}"><div class="status-dot offline"></div><span id="tx-${p.userId}">Lade Status...</span></div><div class="discord-activity" id="ac-${p.userId}" style="display:none;"></div></div></div><div class="social-buttons"><div class="social-btn" data-copy="${p.discord.tag}"><i class="fa-brands fa-discord"></i><span class="label">${p.discord.label}</span><span class="handle">${p.discord.tag}</span></div><div class="social-btn" data-copy="${p.roblox.tag}"><img src="https://cdn.discordapp.com/attachments/1506318533217226752/1519693248766152755/CITYPNG.COMHD_Roblox_White_Symbol_Sign_Icon_Logo_PNG_-_2000x2000.png?ex=6a3e7c21&is=6a3d2aa1&hm=ade79ec58de6b9b7302e5badeaac318d0a9c6f7ecdab4f485975552f17747d1f" style="width:20px;height:20px;"><span class="label">${p.roblox.label}</span><span class="handle">${p.roblox.tag}</span></div></div></div>`;
+}).join('');
+
+const ids = PROFILES.map(p => p.userId);
+
+function update(id){
+const st=document.getElementById(`st-${id}`),tx=document.getElementById(`tx-${id}`),ac=document.getElementById(`ac-${id}`),av=document.getElementById(`av-${id}`);
+if(!st||!tx||!ac)return;
+fetch(`https://api.lanyard.rest/v1/users/${id}`).then(r=>r.json()).then(d=>{
+if(!d.success){tx.textContent="Unsichtbar";st.querySelector(".status-dot").className="status-dot offline";return;}
+const dot=st.querySelector(".status-dot"),s=d.data.discord_status||"offline";
+dot.className="status-dot";
+if(s==="online"){dot.classList.add("online");tx.textContent="Online";}
+else if(s==="idle"){dot.classList.add("idle");tx.textContent="Abwesend";}
+else if(s==="dnd"){dot.classList.add("dnd");tx.textContent="Bitte nicht stören";}
+else{dot.classList.add("offline");tx.textContent="Unsichtbar";}
+if(d.data.discord_user&&d.data.discord_user.avatar){const h=d.data.discord_user.avatar,ex=h.startsWith("a_")?"gif":"png";if(av)av.src=`https://cdn.discordapp.com/avatars/${id}/${h}.${ex}?size=128`;}
+const acts=d.data.activities||[];let f=null;for(const a of acts){if(a.type!==4){f=a;break;}}
+if(f){let h="";if(f.type===0){h=`Spielt: ${f.name}`;if(f.details)h+=`<br><span style="font-size:12px;color:#999;">${f.details}</span>`;if(f.state)h+=`<br><span style="font-size:12px;color:#999;">${f.state}</span>`;}else if(f.type===2){h=`Hört: ${f.details||"Unbekannt"}<br><span style="font-size:12px;color:#999;">von ${f.state||"Unbekannt"}</span>`;}else if(f.type===3){h=`Schaut: ${f.name}`;}else{h=f.name;}ac.innerHTML=h;ac.style.display="block";}else{ac.style.display="none";}
+}).catch(()=>{tx.textContent="Unsichtbar";st.querySelector(".status-dot").className="status-dot offline";});
+}
+ids.forEach(id=>update(id));
+setInterval(()=>ids.forEach(id=>update(id)),30000);
+
+[document.getElementById('snow-container'),document.getElementById('snow-container-front')].forEach(cn=>{
+const f=['❄','❅','❆','✦','•'];
+for(let i=0;i<40;i++){const e=document.createElement('div');e.className='snowflake';e.textContent=f[Math.floor(Math.random()*f.length)];e.style.left=Math.random()*100+'%';e.style.fontSize=(Math.random()*1.5+0.5)+'em';e.style.opacity=Math.random()*0.5+0.3;e.style.animationDuration=(Math.random()*8+5)+'s';e.style.animationDelay=(Math.random()*10)+'s';cn.appendChild(e);}
+});
+})();
+
+document.addEventListener("mousemove",e=>{document.getElementById("cursor-glow").style.left=e.clientX+"px";document.getElementById("cursor-glow").style.top=e.clientY+"px";});
+document.getElementById("enter").onclick=()=>{document.getElementById("enter").style.display="none";document.getElementById("main").style.display="block";document.getElementById("music").play();document.getElementById("musicIcon").src="https://cdn.discordapp.com/attachments/1506318533217226752/1519769366911254539/speaker-256.png?ex=6a3ec305&is=6a3d7185&hm=2a08d6ecb3ac5698e7d3e404c2aca7b5d299e82927337eeda6b61eed649686ed";};
+document.addEventListener("click",e=>{const b=e.target.closest(".social-btn");if(b&&b.dataset.copy){navigator.clipboard.writeText(b.dataset.copy);alert("Kopiert: "+b.dataset.copy);}});
+document.getElementById("musicBtn").onclick=()=>{const m=document.getElementById("music"),i=document.getElementById("musicIcon");if(m.paused){m.play();i.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519616016361984120/lautsprecher_2.png?ex=6a3e3433&is=6a3ce2b3&hm=358d45588b016226dae272b94e373766b77c4631668fbeb1802659ff79ad8626&";}else{m.pause();i.src="https://cdn.discordapp.com/attachments/1506318533217226752/1519615974465343488/lautsprecher.png?ex=6a3e3429&is=6a3ce2a9&hm=c1937dd4ef02deddffdc477c4d1c2ef4d6c5f9ce6c55fa8a50dfb885566c9c45&";}};
+document.addEventListener("click",e=>{if(e.target.classList.contains("avatar")&&e.target.src)window.open(e.target.src,"_blank");});
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</body>
+</html>
